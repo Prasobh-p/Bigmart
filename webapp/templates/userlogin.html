@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+     <section class="forms-section">
+  <h1 class="section-title">Login</h1>
+  <div class="forms">
+    <div class="form-wrapper is-active">
+      <button type="button" class="switcher switcher-login">
+        Login
+        <span class="underline"></span>
+      </button>
+      <form class="form form-login" method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+
+
+          <div class="input-block">
+            <label for="signup-username">Username</label>
+            <input id="signup-email" name="name" type="text" >
+          </div>
+          <div class="input-block">
+            <label for="login-password">Password</label>
+            <input id="login-password" name="psw" type="password" >
+          </div>
+
+        <button type="submit" class="btn-login">Login</button>
+      </form>
+      <div class="create-account">
+  <p>Don't have an account? <a id="create-account-btn" href="{% url 'Register_page' %}">Create Account</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+<script>
+  function validation() {
+  var x = document.myform.UName.value;
+  var j = document.myform.pass1.value;
+  var k = document.myform.pass2.value;
+
+    if (x == ""|| x == null) {
+        alert("Please enter a username.");
+        return false;
+    }
+    else if (j.length < 8) {
+        alert("Password must be at least 8 characters long.");
+        return false;
+    }
+    else if (k.length < 8) {
+        alert("Conform Password must be at least 8 characters long.");
+        return false;
+    }
+    else if (k !== password) {
+        alert("Passwords do not match.");
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+</script>
+<script>
+  const switchers = [...document.querySelectorAll('.switcher')];
+const createAccountBtn = document.getElementById('create-account-btn');
+
+switchers.forEach(item => {
+  item.addEventListener('click', function() {
+    switchers.forEach(item => item.parentElement.classList.remove('is-active'));
+    this.parentElement.classList.add('is-active');
+  });
+});
+
+createAccountBtn.addEventListener('click', function() {
+  switchers.forEach(item => item.parentElement.classList.remove('is-active'));
+  document.querySelector('.form-wrapper:not(.is-active)').classList.add('is-active');
+});
+</script>
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Roboto, -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+            background: #3b4465;
+        }
+
+        .forms-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 32px;
+            letter-spacing: 1px;
+            color: #fff;
+        }
+
+        .forms {
+            display: flex;
+            align-items: flex-start;
+            margin-top: 30px;
+        }
+
+        .form-wrapper {
+            display: none;
+        }
+
+        .form-wrapper.is-active {
+            display: block;
+        }
+
+        .switcher {
+            position: relative;
+            cursor: pointer;
+            display: block;
+            margin-right: auto;
+            margin-left: auto;
+            padding: 0;
+            text-transform: uppercase;
+            font-family: inherit;
+            font-size: 16px;
+            letter-spacing: .5px;
+            color: #999;
+            background-color: transparent;
+            border: none;
+            outline: none;
+        }
+
+        .form {
+            overflow: hidden;
+            min-width: 260px;
+            margin-top: 50px;
+            padding: 30px 25px;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+
+        .input-block {
+            margin-bottom: 20px;
+        }
+
+        .input-block label {
+            font-size: 14px;
+            color: #a1b4b4;
+        }
+
+        .input-block input {
+            display: block;
+            width: 100%;
+            margin-top: 8px;
+            padding-right: 15px;
+            padding-left: 15px;
+            font-size: 16px;
+            line-height: 40px;
+            color: #3b4465;
+            background: #eef9fe;
+            border: 1px solid #cddbef;
+            border-radius: 2px;
+        }
+
+        .form [type='submit'] {
+            display: block;
+            min-width: 120px;
+            margin: 30px auto 10px;
+            font-size: 18px;
+            line-height: 40px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-login {
+            color: #fbfdff;
+            background: #a7e245;
+        }
+
+        .btn-signup {
+            color: #a7e245;
+            background: #fbfdff;
+            box-shadow: inset 0 0 0 2px #a7e245;
+        }
+
+           .create-account {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .create-account a {
+            background: none;
+            border: none;
+            color: #a7e245;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: underline;
+        }
+    </style>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+{% if messages %}
+  {% for i in messages %}
+    {% if i.tags == 'warning' %}
+      <script>
+        swal('{{ i }}', '', 'warning');
+      </script>
+    {% elif i.tags == 'error' %}  {# Corrected Typo #}
+      <script>
+        swal('{{ i }}', '', 'error');
+      </script>
+    {% elif i.tags == 'info' %}
+      <script>
+        swal('{{ i }}', '', 'info');
+      </script>
+    {% elif i.tags == 'success' %}
+      <script>
+        swal('{{ i }}', '', 'success');
+      </script>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+</body>
+</html>
