@@ -18,6 +18,10 @@ urlpatterns=[
     path('Cartpage/',views.Cartpage,name="Cartpage"),
     path('cartremoveiteam/<int:caid>/', views.cartremoveiteam, name="cartremoveiteam"),
     path('userloginpage/',views.userloginpage,name="userloginpage"),
+    path('checkoutpage/',views.checkoutpage,name="checkoutpage"),
+    path('paymentpage/',views.paymentpage,name="paymentpage"),
+    path('Orderdetails/',views.Orderdetails,name="Orderdetails"),
+
 
 
 

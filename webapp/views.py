@@ -4,6 +4,7 @@ from Backend.models import prodb,martdb
 from webapp.models import ContactDB
 from webapp.models import RegisterDB
 from webapp.models import cartDB
+from webapp.models import orderDB
 from django.contrib import messages
 
 # Create your views here.
@@ -100,17 +101,22 @@ def Cart(request):
 
 def Cartpage(request):
     cdata = cartDB.objects.filter(Uname=request.session['Name'])
-
     total_price = 0
-    for i in cdata:
-        total_price = total_price + i.Totalprice
+    shipping_charge = 0
+    total_amount = 0
 
-    shipping_fee = 40
-    if total_price <=100:
-        return (0)
+    for i in cdata:
+        total_price += i.Totalprice
+
+    if total_price > 500:
+        shipping_charge = 50
     else:
-        sh = total_price + shipping_fee
-        return render(request, "Cartpage.html", {'cdata': cdata, 'total_price': total_price, 'sh': sh})
+        shipping_charge = 100
+
+    total_amount = total_price + shipping_charge
+
+    return render(request, "Cartpage.html", {'cdata': cdata, 'total_price': total_price,'shipping_charge': shipping_charge,'total_amount': total_amount})
+
 
 def cartremoveiteam(request,caid):
     data=cartDB.objects.get(id=caid)
@@ -119,7 +125,37 @@ def cartremoveiteam(request,caid):
 
 
 
+def checkoutpage(request):
+    product=cartDB.objects.filter(Uname=request.session['Name'])
+    total_price=0
+    shipping_charge=0
+    total_amount=0
 
+    for i in product:
+        total_price = total_price + i.Totalprice
+
+    if shipping_charge >500:
+        shipping_charge=50
+    else:
+        shipping_charge=100
+
+    total_amount=total_price+shipping_charge
+
+    return render(request,"checkoutpage.html",{'product':product,'total_price':total_price,'shipping_charge':shipping_charge,'total_amount':total_amount})
+
+def paymentpage(req):
+    return render(req,"payment.html")
+
+def Orderdetails(request):
+    if request.method == "POST":
+        oname = request.session['Name']
+        oemail = request.POST.get("email")
+        oaddress = request.POST.get("adderss")
+        omobile = request.POST.get("mobile")
+        ototalprice = request.POST.get("total_price")
+        obj5 = orderDB(Oname=oname, Oemail=oemail,Oaddress=oaddress,Omobile=omobile,Ototalprice=ototalprice)
+        obj5.save()
+        return redirect(paymentpage)
 
 
 

@@ -71,14 +71,14 @@
                                     </ul>
                                 </li>
                                 <li><a href="{% url 'contactpage' %}">Contact</a></li>
-                                <li><a href="shop.html">Shop</a>
-									<ul class="sub-menu">
-										<li><a href="shop.html">Shop</a></li>
-										<li><a href="checkout.html">Check Out</a></li>
-										<li><a href="single-product.html">Single Product</a></li>
-										<li><a href="cart.html">Cart</a></li>
-									</ul>
-								</li>
+<!--                                <li><a href="shop.html">Shop</a>-->
+<!--									<ul class="sub-menu">-->
+<!--										<li><a href="shop.html">Shop</a></li>-->
+<!--										<li><a href="checkout.html">Check Out</a></li>-->
+<!--										<li><a href="single-product.html">Single Product</a></li>-->
+<!--										<li><a href="cart.html">Cart</a></li>-->
+<!--									</ul>-->
+<!--								</li>-->
                                 <li>
                                      <div>
                                          {% if request.session.Name %}
@@ -92,7 +92,6 @@
                                 <li>
                                     <div class="header-icons">
                                         <a class="shopping-cart" href="{% url 'Cartpage' %}"><i class="fas fa-shopping-cart"></i></a>
-                                        <a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
                                     </div>
                                 </li>
                             </ul>
@@ -134,9 +133,9 @@
                     <div class="hero-text">
                         <div class="hero-text-tablecell">
                             <p class="subtitle">Fresh & Organic</p>
-                            <h1>Delicious Seasonal Fruits</h1>
+                            <h1>Vegitables & Fruits </h1>
                             <div class="hero-btns">
-                                <a href="shop.html" class="boxed-btn">Fruit Collection</a>
+                                <a href="{% url 'our_products' %}" class="boxed-btn">Our Collection</a>
                                 <a href="contact.html" class="bordered-btn">Contact Us</a>
                             </div>
                         </div>
@@ -252,16 +251,16 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="footer-box about-widget">
                         <h2 class="widget-title">About us</h2>
-                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        <p>Welcome to Bigmart, your trusted source for fresh and high-quality fruits and vegetables. Our mission is to provide our customers with farm-fresh, organic, and sustainably sourced produce that enhances health and well-being.</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="footer-box get-in-touch">
                         <h2 class="widget-title">Get in Touch</h2>
                         <ul>
-                            <li>34/8, East Hukupara, Gifirtok, Sadan.</li>
-                            <li>support@fruitkha.com</li>
-                            <li>+00 111 222 3333</li>
+                            <li>678633,kadampazhipuram,palakkad</li>
+                            <li>Bigmart@gmail.com</li>
+                            <li>+91 7306640439</li>
                         </ul>
                     </div>
                 </div>
@@ -269,11 +268,10 @@
                     <div class="footer-box pages">
                         <h2 class="widget-title">Pages</h2>
                         <ul>
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">About</a></li>
-                            <li><a href="#">Shop</a></li>
-                            <li><a href="#">News</a></li>
-                            <li><a href="#">Contact</a></li>
+                            <li><a href="{% url 'homepage' %}">Home</a></li>
+                            <li><a href="{% url 'about' %}">About</a></li>
+                            <li><a href="{% url 'our_products' %}">our product</a></li>
+                            <li><a href="{% url 'contactpage' %}">Contact</a></li>
                         </ul>
                     </div>
                 </div>
@@ -297,7 +295,6 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <p>&copy; 2021 - All Rights Reserved</p>
                 </div>
             </div>
         </div>

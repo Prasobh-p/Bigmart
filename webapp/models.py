@@ -20,3 +20,13 @@ class cartDB(models.Model):
     Pname = models.CharField(max_length=500, null=True, blank=True)
     Quantity = models.IntegerField(null=True,blank=True)
     Totalprice = models.IntegerField(null=True,blank=True)
+
+
+class orderDB(models.Model):
+    Oname=models.CharField(max_length=500, null=True, blank=True)
+    Oemail=models.EmailField(max_length=500, null=True, blank=True)
+    Oaddress=models.CharField(max_length=500, null=True, blank=True)
+    Omobile=models.IntegerField(null=True, blank=True)
+    Ototalprice=models.IntegerField(null=True, blank=True)
+
+
