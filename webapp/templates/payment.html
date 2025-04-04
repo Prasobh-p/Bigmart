@@ -1,87 +1,92 @@
-
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Payment</title>
-</head>
-<body>
-
-<form action="#" method="POST">
-    {% csrf_token %}
-
-    <div style="text-align:center; margin-top:-80px;">
-        <h1>Proceed to Payment</h1>
-         <input type="hidden" name="" >
-
-
-
-        <img src="{% static 'assets/cash-payment-icon-5.png' %}" width="100px;" height="100px;">
-        <br>
-            <button class="btn">Make Payment</button>
-    </div>
-
-</form>
-
-    <!-- Include Razorpay script for payment -->
-
-
+    <meta charset="UTF-8">
+    <title>Proceed to Payment</title>
 
     <style>
         * {
             box-sizing: border-box;
-            padding: 0px;
-            margin: 0px;
-            font-family: cursive;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
         }
-        html,
-        body {
+
+        html, body {
             height: 100%;
         }
+
         body {
-            background-image: url({% static 'assets/img/small-grocery-cart-with-black-friday-sale-inscription.jpg' %});
+            background-image: url("{% static 'assets/img/small-grocery-cart-with-black-friday-sale-inscription.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             display: flex;
             justify-content: center;
             align-items: center;
+            color: #333;
         }
+
         .card {
             background-color: white;
-            padding: 25px;
-            border: 1px solid #bbbbbb;
-            border-radius: 5px;
-            box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 25%);
-        }
-        .title {
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
             text-align: center;
-            letter-spacing: 1px;
+            max-width: 400px;
+            width: 90%;
         }
-        .muted {
-            color: #8e7f7f;
-            display: block;
-            margin-bottom: 10px;
-            text-align: center;
+        .card h1 {
+        color: #ff7e5f;
+        font-size: 2rem;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 20px;
+
         }
-        .btn_container {
-            padding: 20px;
-            text-align: center;
+
+        .card img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
         }
+
         .btn {
-            border-radius: 4px;
+            border: none;
+            border-radius: 8px;
             cursor: pointer;
-            padding: 4px 8px;
-            background-color: #ffaaa7;
+            padding: 12px 20px;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
             color: white;
-            font-size: 1.2em;
+            font-size: 1rem;
             font-weight: 600;
-            letter-spacing: 1px;
+            letter-spacing: 0.8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn:hover {
+            background: linear-gradient(to right, #ff6a4d, #fca974);
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
         }
     </style>
+</head>
+<body>
 
-
-
+    <form action="#" method="POST">
+        {% csrf_token %}
+        <div class="card">
+            <h1>Proceed to Payment</h1>
+            <img src="{% static 'assets/img/payment Image.png' %}" alt="Payment Icon" />
+            <br>
+            <button class="btn">Make Payment</button>
+        </div>
+    </form>
 
 </body>
 </html>
