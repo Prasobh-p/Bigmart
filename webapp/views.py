@@ -6,7 +6,7 @@ from webapp.models import RegisterDB
 from webapp.models import cartDB
 from webapp.models import orderDB
 from django.contrib import messages
-
+import razorpay
 # Create your views here.
 
 def homepage(req):
@@ -56,11 +56,15 @@ def Userlogin(request):
         email = request.POST.get("Email")
         pas1 = request.POST.get("pass1")
         pas2 = request.POST.get("pass2")
+
         ob3 = RegisterDB(Name=uname,Email=email,Password=pas1,Confirmpassword=pas2)
+
         if RegisterDB.objects.filter(Name=uname).exists():
             messages.warning(request,"User already exists...")
+
         elif RegisterDB.objects.filter(Email=email).exists():
             messages.warning(request, "Email already exists...")
+
         else:
             ob3.save()
             messages.success(request, "Registered succesfully")
@@ -100,7 +104,10 @@ def Cart(request):
 
 
 def Cartpage(request):
-    cdata = cartDB.objects.filter(Uname=request.session['Name'])
+    name = request.session.get('Name')
+    if not name:
+        return redirect('login')
+    cdata = cartDB.objects.filter(Uname=name)
     total_price = 0
     shipping_charge = 0
     total_amount = 0
@@ -143,8 +150,24 @@ def checkoutpage(request):
 
     return render(request,"checkoutpage.html",{'product':product,'total_price':total_price,'shipping_charge':shipping_charge,'total_amount':total_amount})
 
-def paymentpage(req):
-    return render(req,"payment.html")
+def paymentpage(request):
+    customer = orderDB.objects.order_by('-id').first()
+    payy = customer.Ototalprice
+    amount = int(payy * 100)
+    payy_str = str(amount)
+
+
+    if request.method == "POST":
+        order_currency = 'INR'
+
+        client = razorpay.Client(auth=('rzp_test_ejwy1yBgEPDZ2A', 'NKOMC4fph178a9Cf0Mr2aFrn'))
+
+
+        payment = client.order.create({'amount': amount,'currency': order_currency,'payment_capture': '1'})
+
+        return render(request, "payment.html", {'customer': customer,'pay_str': payy_str,'payment': payment})
+    return render(request, "payment.html", {'customer': customer,'pay_str': payy_str})
+
 
 def Orderdetails(request):
     if request.method == "POST":

@@ -4,16 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Proceed to Payment</title>
-
-    <style>
+        <style>
         * {
             box-sizing: border-box;
             margin: 0;
-            padding: 0;
+            padding: 0; 
             font-family: 'Poppins', sans-serif;
         }
 
-        html, body {
+        html, body {gi
             height: 100%;
         }
 
@@ -44,6 +43,14 @@
         text-align: center;
         margin-bottom: 20px;
 
+        }
+
+        .card h2 {
+        color: #ff7e5f;
+        font-size: 20;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 20px;
         }
 
         .card img {
@@ -77,16 +84,30 @@
     </style>
 </head>
 <body>
-
     <form action="#" method="POST">
         {% csrf_token %}
         <div class="card">
             <h1>Proceed to Payment</h1>
+            <h2>{{ customer.Oname }}</h2>
             <img src="{% static 'assets/img/payment Image.png' %}" alt="Payment Icon" />
             <br>
-            <button class="btn">Make Payment</button>
+            <button type="submit" class="btn">Make Payment</button>
         </div>
     </form>
+    <script
+            src="https://checkout.razorpay.com/v1/checkout.js"
+            data-key="rzp_test_ejwy1yBgEPDZ2A"
+            data-amount="{{ pay_str }}"
+            data-currency="INR"
+            data-order_id="{{ payment.order_id }}"
+            data-name="Bigmart">
+    </script>
 
+    <style>
+        /* Hide the Razorpay pay button */
+        .razorpay-payment-button {
+            display: none !important;
+        }
+    </style>
 </body>
 </html>

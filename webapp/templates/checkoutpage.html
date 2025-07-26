@@ -83,7 +83,7 @@
 									</ul>
 								</li>
 								<li><div>
-                                         {% if request.session.Name %}
+                                          {% if request.session.Name %}
                                          <a href="{% url 'logout' %}">{{request.session.Name}}/logout</a>
                                          {% else %}
                                          <a href="{% url 'Register_page' %}">Registeration/login</a>
